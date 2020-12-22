@@ -1,1 +1,1 @@
-this is my work in python
+This are the assignments that I completed on various coursera specializations dealing with python
