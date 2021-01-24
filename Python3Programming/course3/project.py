@@ -49,3 +49,9 @@ def get_movies_from_tastedive(movie):
     req = requests_with_caching.get(baseurl,params = parameters)
     res = req.json()
     return res
+
+# Next, you will need to write a function that extracts just the list of movie titles from a dictionary returned by get_
+# movies_from_tastedive. Call it extract_movie_titles.
+def extract_movie_titles(results):
+    return [title["Name"] for title in results["Similar"]["Results"]]
+
