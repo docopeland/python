@@ -88,3 +88,13 @@ def get_movie_rating(OMDBdict):
         if sources["Source"] == "Rotten Tomatoes":
             RT = int(str(sources["Value"])[:-1])
     return RT
+
+# Define a function get_sorted_recommendations. It takes a list of movie titles as an input. It returns a sorted list of
+# related movie titles as output, up to five related movies for each input movie title. The movies should be sorted in
+# descending order by their Rotten Tomatoes rating, as returned by the get_movie_rating function. Break ties in reverse
+# alphabetic order, so that ‘Yahşi Batı’ comes before ‘Eyyvah Eyvah’.
+def get_sorted_recommendations(movieTitles):
+    ratings = [get_movie_rating(get_movie_data(movie)) for movie in get_related_titles(movieTitles)]
+    related = get_related_titles(movieTitles)
+    rec = sorted(zip(related,ratings),key=lambda tup: (tup[1],tup[0]), reverse=True)
+    return [tup[0] for tup in rec]
