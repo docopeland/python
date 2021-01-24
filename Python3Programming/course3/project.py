@@ -52,6 +52,17 @@ def get_movies_from_tastedive(movie):
 
 # Next, you will need to write a function that extracts just the list of movie titles from a dictionary returned by get_
 # movies_from_tastedive. Call it extract_movie_titles.
-def extract_movie_titles(results):
-    return [title["Name"] for title in results["Similar"]["Results"]]
+def extract_movie_titles(json):
+    return [title["Name"] for title in json["Similar"]["Results"]]
+
+# Next, you’ll write a function, called get_related_titles. It takes a list of movie titles as input. It gets five
+# related movies for each from TasteDive, extracts the titles for all of them, and combines them all into a single list.
+# Don’t include the same movie twice.
+def get_related_titles(movieList):
+    fullList = []
+    for movie in movieList:
+        for relMovie in extract_movie_titles(get_movies_from_tastedive(movie)):
+            if relMovie not in fullList:
+                fullList.append(relMovie)
+    return fullList
 
