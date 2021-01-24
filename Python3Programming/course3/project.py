@@ -39,4 +39,13 @@
 # Captain Marvel | movies | 5
 # Bridesmaids | movies | 5
 # Sherlock Holmes | movies | 5
-print("danielle test")
+
+import requests_with_caching # doesn't exist outside of my coursera course, in order to work in the real world, the
+# api needs an api-key that I don't have
+import json
+def get_movies_from_tastedive(movie):
+    baseurl = "https://tastedive.com/api/similar"
+    parameters = {"q": movie, "type": "movies", "limit": 5}
+    req = requests_with_caching.get(baseurl,params = parameters)
+    res = req.json()
+    return res
