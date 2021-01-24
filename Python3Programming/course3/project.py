@@ -79,6 +79,12 @@ def get_movie_data(movie):
     res = req.json()
     return res
 
-# Please copy the completed function from above into this active code window. Now write a function called get_movie_
-# rating. It takes an OMDB dictionary result for one movie and extracts the Rotten Tomatoes rating as an integer. For
-# example, if given the OMDB dictionary for “Black Panther”, it would return 97. If there is no Rotten Tomatoes rating, return 0.
+# Now write a function called get_movie_rating. It takes an OMDB dictionary result for one movie and extracts the Rotten
+# Tomatoes rating as an integer. For example, if given the OMDB dictionary for “Black Panther”, it would return 97. If
+# there is no Rotten Tomatoes rating, return 0.
+def get_movie_rating(OMDBdict):
+    RT = 0
+    for sources in OMDBdict["Ratings"]:
+        if sources["Source"] == "Rotten Tomatoes":
+            RT = int(str(sources["Value"])[:-1])
+    return RT
