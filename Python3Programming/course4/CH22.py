@@ -1,10 +1,18 @@
-# The class, Pokemon, is provided below and describes a Pokemon and its leveling and evolving characteristics. An
-# instance of the class is one pokemon that you create.
+# Question 1: The class, Pokemon, is provided below and describes a Pokemon and its leveling and evolving
+# characteristics. An instance of the class is one pokemon that you create.
 # Grass_Pokemon is a subclass that inherits from Pokemon but changes some aspects, for instance, the boost values are
 # different.
 # For the subclass Grass_Pokemon, add another method called action that returns the string "[name of pokemon] knows a
 # lot of different moves!". Create an instance of this class with the name as "Belle". Assign this instance to the
 # variable p1.
+
+# Question 2: Modify the Grass_Pokemon subclass so that the attack strength for Grass_Pokemon instances does not change
+# until they reach level 10. At level 10 and up, their attack strength should increase by the attack_boost amount when
+# they are trained.
+# To test, create an instance of the class with the name as "Bulby". Assign the instance to the variable p2. Create
+# another instance of the Grass_Pokemon class with the name set to "Pika" and assign that instance to the variable p3.
+# Then, use Grass_Pokemon methods to train the p3 Grass_Pokemon instance until it reaches at least level 10.
+
 class Pokemon(object):
     attack = 12
     defense = 10
@@ -62,43 +70,31 @@ class Grass_Pokemon(Pokemon):
     def moves(self):
         self.p_moves = ["razor leaf", "synthesis", "petal dance"]
 
-# below here are my additions to the code
+# code for question 1
     def action(self):
         return "{} knows a lot of different moves!".format(self.name)
 
-p1 = Grass_Pokemon("Belle")
-
-
-# Modify the Grass_Pokemon subclass so that the attack strength for Grass_Pokemon instances does not change until they
-# reach level 10. At level 10 and up, their attack strength should increase by the attack_boost amount when they are
-# trained.
-# To test, create an instance of the class with the name as "Bulby". Assign the instance to the variable p2. Create
-# another instance of the Grass_Pokemon class with the name set to "Pika" and assign that instance to the variable p3.
-# Then, use Grass_Pokemon methods to train the p3 Grass_Pokemon instance until it reaches at least level 10.
-
-class Grass_Pokemon(Pokemon):
-    attack = 15
-    defense = 14
-    health = 12
-
-    def update(self):
-        self.health_boost = 6
-        self.attack_boost = 2
-        self.defense_boost = 3
-        self.evolve = 12
-
-    def moves(self):
-        self.p_moves = ["razor leaf", "synthesis", "petal dance"]
-
-    # below here are my additions to the code
-    def action(self):
-        return "{} knows a lot of different moves!".format(self.name)
-
+# code for question 2
     def attack_up(self):
         if self.level >= 10 :
             Pokemon.attack_up(self)
         return self.attack
 
+class Ghost_Pokemon(Pokemon):
+    p_type = "Ghost"
+
+    def update(self):
+        self.health_boost = 3
+        self.attack_boost = 4
+        self.defense_boost = 3
+
+class Fire_Pokemon(Pokemon):
+    p_type = "Fire"
+
+class Flying_Pokemon(Pokemon):
+    p_type = "Flying"
+
+p1 = Grass_Pokemon("Belle")
 p2 = Grass_Pokemon("Bulby")
 p3 = Grass_Pokemon("Pika")
 p3.train()
@@ -107,5 +103,3 @@ p3.train()
 p3.train()
 p3.train()
 p3.attack_up()
-
-
