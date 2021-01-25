@@ -13,6 +13,15 @@
 # another instance of the Grass_Pokemon class with the name set to "Pika" and assign that instance to the variable p3.
 # Then, use Grass_Pokemon methods to train the p3 Grass_Pokemon instance until it reaches at least level 10.
 
+# Question 3: Along with the Pokemon parent class, we have also provided several subclasses. Write another method in the
+# parent class that will be inherited by the subclasses. Call it opponent. It should return which type of pokemon the
+# current type is weak and strong against, as a tuple.
+# Grass is weak against Fire and strong against Water
+# Ghost is weak against Dark and strong against Psychic
+# Fire is weak against Water and strong against Grass
+# Flying is weak against Electric and strong against Fighting
+# For example, if the p_type of the subclass is 'Grass', .opponent() should return the tuple ('Fire', 'Water')
+
 class Pokemon(object):
     attack = 12
     defense = 10
@@ -56,10 +65,22 @@ class Pokemon(object):
         self.update()
         return "Pokemon name: {}, Type: {}, Level: {}".format(self.name, self.p_type, self.level)
 
+# code for question 3
+    def opponent(self):
+        if self.p_type == "Grass":
+            return ("Fire","Water")
+        if self.p_type == "Ghost":
+            return ("Dark","Psychic")
+        if self.p_type == "Fire":
+            return ("Water","Grass")
+        if self.p_type == "Flying":
+            return ("Electric","Fighting")
+
 class Grass_Pokemon(Pokemon):
     attack = 15
     defense = 14
     health = 12
+    p_type = "Grass"
 
     def update(self):
         self.health_boost = 6
@@ -93,6 +114,7 @@ class Fire_Pokemon(Pokemon):
 
 class Flying_Pokemon(Pokemon):
     p_type = "Flying"
+
 
 p1 = Grass_Pokemon("Belle")
 p2 = Grass_Pokemon("Bulby")
