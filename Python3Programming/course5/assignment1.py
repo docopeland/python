@@ -13,9 +13,7 @@ def colorChange(color,percent,row):
     width = newIm.width
     for x in range(width):
         for y in range(height):
-            r = newIm.getpixel((x,y))[0]
-            g = newIm.getpixel((x,y))[1]
-            b = newIm.getpixel((x,y))[2]
+            r,g,b,e = newIm.getpixel((x,y))
             if color == "red":
                 r = int(r * percent)
             if color == "green":
@@ -23,9 +21,7 @@ def colorChange(color,percent,row):
             if color == "blue":
                 b = int(b * percent)
             newIm.putpixel((x,y),(r,g,b))
-    r = 255
-    g = 255
-    b = 255
+    r,g,b = 255,255,255
     if color == "red":
         r = int(255 * percent)
     if color == "green":
