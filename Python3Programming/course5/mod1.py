@@ -38,7 +38,7 @@ help(Image.open)
 # It looks like Image.open() is a function that loads an image from a file and returns an instance
 # of the Image class. Lets give it a try. In the read_only directory there is an image I've provided
 # which is from our Master's of Information program recruitment flyer. Lets try and load that now
-file = "readonly/msi_recruitment.gif"
+file = "cclogo.jpeg"
 image = Image.open(file)
 print(image)
 
@@ -63,9 +63,10 @@ image.show()
 # has its offices, then you just popped up a picture of our recruitment materials. Thanks! :)
 # Instead, we want to render the image in the Jupyter notebook. It turns out Jupyter has a function
 # which can help with this.
-# NB: IPython does not work for me, I think it only works on Jupyter
-from IPython.display import display
-display(image)
+# NB: IPython does not work for me, I think it only works on Jupyter so using .show() instead
+# from IPython.display import display
+# display(image)
+image.show()
 
 # Common Functions in the Python Imaging Library
 # Lets take a look at some of the common tasks we can do in python using the pillow library.
@@ -73,10 +74,10 @@ display(image)
 # First, lets import the PIL library and the Image object
 import PIL
 from PIL import Image
-# And lets import the display functionality
-from IPython.display import display
+# And lets import the display functionality, not using, will use .show() instead
+# from IPython.display import display
 # And finally, lets load the image we were working with last time
-file="readonly/msi_recruitment.gif"
+file="cclogo.jpeg"
 image=Image.open(file)
 
 # Great, now lets check out a few more methods of the image library. First, we'll look at copy
@@ -92,8 +93,8 @@ help(image.save)
 # the image, but the docs tell us that this should be done automatically by looking at the file extension
 # as well. Lets give it a try -- this file was originally a GifImageFile, but I bet if we save it with a
 # .png format and read it in again we'll get a different kind of file
-image.save("msi_recruitment.png")
-image=Image.open("msi_recruitment.png")
+image.save("cclogo2.jpeg")
+image=Image.open("cclogo2.jpeg")
 import inspect
 inspect.getmro(type(image))
 
@@ -117,7 +118,7 @@ help(ImageFilter)
 # function.
 image=image.convert('RGB') # this stands for red, green blue mode
 blurred_image=image.filter(PIL.ImageFilter.BLUR)
-display(blurred_image)
+blurred_image.show()
 
 # Ok, let me show you one more function in the lecture, which is crop(). This removes portions of the image
 # except for the bounding box you describe. When you think of images, think of individual dots or pixels
@@ -138,7 +139,7 @@ help(image.crop)
 # So, if we wanted to get the Michigan logo out of this image, we might start with the left at, say 50 pixels,
 # and the top at 0 pixels, then we might walk to the right another 190 pixels, and set the lower bound to say
 # 150 pixels
-display(image.crop((50,0,190,150)))
+image.crop((50,0,190,150)).show()
 
 # Of course crop(), like other functions, only returns a copy of the image, and doesn't change the image itself.
 # A strategy I like to do is try and draw the bounding box directly on the image, when I'm trying to line things
@@ -147,7 +148,7 @@ display(image.crop((50,0,190,150)))
 from PIL import ImageDraw
 drawing_object=ImageDraw.Draw(image)
 drawing_object.rectangle((50,0,190,150), fill = None, outline ='red')
-display(image)
+image.show()
 
 
 # Additional PILLOW functions
@@ -156,13 +157,13 @@ display(image)
 # First, lets import all of the library functions we need
 import PIL
 from PIL import Image
-from IPython.display import display
+# from IPython.display import display
 
 # And lets load the image we were working, and we can just convert it to RGB inline
-file="readonly/msi_recruitment.gif"
+file="cclogo.jpeg"
 image=Image.open(file).convert('RGB')
 
-display(image)
+image.show()
 
 # A task that is fairly common in image and picture manipulation is to create contact sheets of images.
 # A contact sheet is one image that actually contains several other different images. Lets try and make
@@ -224,7 +225,7 @@ for img in images:
 # everything down to the size of just two individual images
 contact_sheet = contact_sheet.resize((160,900) )
 # Now lets just display that composite image
-display(contact_sheet)
+contact_sheet.show()
 
 # Ok, that's a nice proof of concept. But it's a little tough to see. Lets instead change this to a three
 # by three grid of values. First thing we should do is make our canvas, and we'll make it 3 times the
@@ -255,4 +256,4 @@ for img in images[1:]:
 # numbers into integers using the int() function.
 contact_sheet = contact_sheet.resize((int(contact_sheet.width/2),int(contact_sheet.height/2) ))
 # Now lets display that composite image
-display(contact_sheet)
+contact_sheet.show()
