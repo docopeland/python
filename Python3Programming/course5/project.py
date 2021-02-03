@@ -27,3 +27,9 @@ word = "Christopher"
 zip = zipfile.ZipFile("readonly/small_img.zip","r")
 images = [name for name in zip.namelist() if word in pytesseract.image_to_string(name)]
 print(images)
+
+
+img = cv.imread("a-0.png")
+# gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+# faces = face_cascade.detectMultiScale(gray)
+# faces = faces.tolist()
