@@ -22,40 +22,37 @@ from kraken import pageseg
 # loading the face detection classifier
 face_cascade = cv.CascadeClassifier('readonly/haarcascade_frontalface_default.xml')
 
-# images where the word is written in the newspaper
-word = "Christopher"
-zip = zipfile.ZipFile("readonly/small_img.zip","r")
-images = [name for name in zip.namelist() if word in pytesseract.image_to_string(name)]
-print(images)
-
-img = cv.imread("a-0.png")
-# gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-# faces = face_cascade.detectMultiScale(gray)
-# faces = faces.tolist()
-
+# the rest is up to you!
 def faceCrop(image):
-    gray = cv.cvtColor(image,cv.COLOR_BGR2GRAY)
+    gray = cv.cvtColor(image,cv.COLOR_RGB2GRAY)
     faces = face_cascade.detectMultiScale(gray,1.35)
-    pilImg = Image.fromarray(gray,mode="L")
+    pilImg = Image.fromarray(gray)
     return [pilImg.crop((face[0],face[1],face[0]+face[2],face[1]+face[3])) for face in faces]
 
 def showFace(faces):
-    facepage = Image.new("RGBA",(500,200))
-    for i in range(len(faces)):
-        faces[i].resize((100,100),Image.NEAREST)
-        if i < 5:
+    if len(faces) < 1:
+        print("But there were no faces in that file!")
+    elif len(faces) > 5:
+        facepage = Image.new("L",(500,200))
+        for i in range(len(faces)):
+            faces[i] = faces[i].resize((100,100),Image.NEAREST)
+            if i < 5:
+                facepage.paste(faces[i],(i*100,0))
+            else:
+                facepage.paste(faces[i],((i-5)*100,100))
+    else:
+        facepage = Image.new("L",(500,100))
+        for i in range(len(faces)):
+            faces[i] = faces[i].resize((100,100),Image.NEAREST)
             facepage.paste(faces[i],(i*100,0))
-        else:
-            facepage.paste(faces[i],((i-5)*100,100))
     display(facepage)
 
-
-word = "Christopher"
-zip = zipfile.ZipFile("readonly/small_img.zip","r")
-for name in zip.namelist():
-    if word in pytesseract.image_to_string(name):
-        print("Results found in file {}".format(name))
-        image = cv.imread(name)
-        showFace(faceCrop(image))
-    else:
-        continue
+def search(word,zipf):
+    zip = zipfile.ZipFile(zipf,"r")
+    for name in zip.namelist():
+        if word in pytesseract.image_to_string(name):
+            print("Results found in file {}".format(name))
+            image = cv.imread(name)
+            showFace(faceCrop(image))
+        else:
+            continue
