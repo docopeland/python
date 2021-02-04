@@ -13,11 +13,9 @@
 
 import zipfile
 
-from PIL import Image,ImageDraw
+from PIL import Image
 import pytesseract
 import cv2 as cv
-import numpy as np
-from kraken import pageseg
 
 # loading the face detection classifier
 face_cascade = cv.CascadeClassifier('readonly/haarcascade_frontalface_default.xml')
@@ -45,7 +43,7 @@ def showFace(faces):
         for i in range(len(faces)):
             faces[i] = faces[i].resize((100,100),Image.NEAREST)
             facepage.paste(faces[i],(i*100,0))
-    display(facepage)
+    facepage.show()
 
 def search(word,zipf):
     zip = zipfile.ZipFile(zipf,"r")
